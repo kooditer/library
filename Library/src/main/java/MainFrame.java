@@ -1,0 +1,35 @@
+import javax.swing.*;
+import java.awt.*;
+
+public class MainFrame extends JFrame {
+    private ToolBar toolBar;
+    private TextPanel textPanel;
+
+
+    public  MainFrame() {
+        super("Minu Raamatukogu");
+        setLayout(new BorderLayout());
+
+
+        textPanel = new TextPanel();
+        toolBar = new ToolBar();
+
+        toolBar.setStringListener(new StringListener() {
+            @Override
+            public void textEmitted(String text) {
+                textPanel.appendText(text);
+            }
+        });
+
+
+        add(textPanel, BorderLayout.CENTER);
+        add(toolBar, BorderLayout.NORTH);
+
+
+
+
+        setSize(600, 400);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setVisible(true);
+    }
+}
