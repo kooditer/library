@@ -1,3 +1,5 @@
+package gui;
+
 import java.util.EventObject;
 
 public class FormEvent extends EventObject {
@@ -9,7 +11,7 @@ public class FormEvent extends EventObject {
     private boolean checkBox;
     private String laenutaja;
 
-//    public FormEvent(Object source) {
+//    public gui.FormEvent(Object source) {
 //        super(source);
 //    }
 

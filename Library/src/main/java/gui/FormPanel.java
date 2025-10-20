@@ -1,3 +1,5 @@
+package gui;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
@@ -46,24 +48,24 @@ public class FormPanel extends JPanel {
         laenutajaField = new JTextField(10);
         okNupp = new JButton("Salvesta");
 
-        DefaultComboBoxModel kategooria = new DefaultComboBoxModel<>();
-        kategooria.addElement("Lasteraamat");
-        kategooria.addElement("Õpik");
-        kategooria.addElement("Eneseabi");
-        kategooria.addElement("Kriminull");
-        kategooria.addElement("Põnevik");
-        kategooria.addElement("Luuleraamat");
-        kategooria.addElement("Muu");
-        zhanrCombobox.setModel(kategooria);
+        DefaultComboBoxModel kategooriaModel = new DefaultComboBoxModel<>();
+        kategooriaModel.addElement("Lasteraamat");
+        kategooriaModel.addElement("Õpik");
+        kategooriaModel.addElement("Eneseabi");
+        kategooriaModel.addElement("Kriminull");
+        kategooriaModel.addElement("Põnevik");
+        kategooriaModel.addElement("Luuleraamat");
+        kategooriaModel.addElement("Muu");
+        zhanrCombobox.setModel(kategooriaModel);
         zhanrCombobox.setSelectedIndex(0);
 
-        DefaultComboBoxModel hinnang = new DefaultComboBoxModel<>();
-        hinnang.addElement("Väga hea");
-        hinnang.addElement("Hea");
-        hinnang.addElement("Keskmine");
-        hinnang.addElement("Halb");
-        hinnang.addElement("Väga halb");
-        hinnangCombobox.setModel(hinnang);
+        DefaultComboBoxModel hinnangModel = new DefaultComboBoxModel<>();
+        hinnangModel.addElement("Väga hea");
+        hinnangModel.addElement("Hea");
+        hinnangModel.addElement("Keskmine");
+        hinnangModel.addElement("Halb");
+        hinnangModel.addElement("Väga halb");
+        hinnangCombobox.setModel(hinnangModel);
         hinnangCombobox.setSelectedIndex(0);
 
         laenutusLabel.setEnabled(false);
@@ -98,7 +100,7 @@ public class FormPanel extends JPanel {
 
         LayOutSettings();
 
-    }//FormPanel construction lõpp
+    }//gui.FormPanel construction lõpp
     public void LayOutSettings() {
         setLayout(new GridBagLayout());
         GridBagConstraints gc = new GridBagConstraints();
@@ -225,5 +227,23 @@ public class FormPanel extends JPanel {
         this.listener = listener;
     }
 
+}//gui.FormPanel class lõpp
 
-}//FormPanel class lõpp
+//class Rating {
+//    private int id;
+//    private String text;
+//
+//    public Rating(int id, String text) {
+//        this.id = id;
+//        this.text = text;
+//    }
+//
+//    public int getId() {
+//        return id;
+//    }
+//
+//    @Override
+//    public String toString() {
+//        return text;
+//    }
+//}
