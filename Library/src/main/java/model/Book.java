@@ -1,8 +1,9 @@
 package model;
 
 public class Book {
-    private int id;
+
     private static int count = 0;
+    private int id;
     private String title;
     private String author;
     private String published;
@@ -23,8 +24,6 @@ public class Book {
         count++;
     } //Book constructor
 
-    public Book() {
-    }
 
     public int getId() {
         return id;

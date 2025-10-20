@@ -6,8 +6,14 @@ import model.Database;
 import model.Genre;
 import model.Rating;
 
+import java.util.List;
+
 public class Controller {
     Database db =new Database();
+
+    public List<Book> getBooks() {
+        return db.getBooks();
+    }
 
     public void addBook(FormEvent ev) {
         String pealkiri = ev.getPealkiri();
