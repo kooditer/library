@@ -25,6 +25,13 @@ public class MainFrame extends JFrame {
         tablePanel = new TablePanel();
         tablePanel.setData(controller.getBooks());
 
+        tablePanel.setBookTableListener(new BookTableListener() {
+            public void rowDeleted(int row) {
+                System.out.println(row);
+                controller.removeBook(row);
+            }
+        });
+
         toolBar.setStringListener(new StringListener() {
             @Override
             public void textEmitted(String text) {

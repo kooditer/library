@@ -1,13 +1,15 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 public class Database {
-    private ArrayList<Book> books;
+    private List<Book> books;
 
     public Database() {
-        books = new ArrayList<Book>();
+        books = new LinkedList<Book>();
     }
 
     public void addBook(Book book) {
@@ -15,7 +17,11 @@ public class Database {
     }
 
     public List<Book> getBooks() {
-        return books;
+        return Collections.unmodifiableList(books);
+    }
+
+    public void removeBook(int index) {
+        books.remove(index);
     }
 
 
