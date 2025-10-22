@@ -1,9 +1,12 @@
+package gui;
+
 import javax.swing.*;
 import java.awt.*;
 
 public class MainFrame extends JFrame {
     private ToolBar toolBar;
     private TextPanel textPanel;
+    private FormPanel formPanel;
 
 
     public  MainFrame() {
@@ -13,6 +16,7 @@ public class MainFrame extends JFrame {
 
         textPanel = new TextPanel();
         toolBar = new ToolBar();
+        formPanel = new FormPanel();
 
         toolBar.setStringListener(new StringListener() {
             @Override
@@ -24,6 +28,7 @@ public class MainFrame extends JFrame {
 
         add(textPanel, BorderLayout.CENTER);
         add(toolBar, BorderLayout.NORTH);
+        add(formPanel, BorderLayout.WEST);
 
 
 
