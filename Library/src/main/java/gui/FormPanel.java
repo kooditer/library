@@ -18,6 +18,7 @@ public class FormPanel extends JPanel {
     private JLabel laenutajaLabel;
     private JTextField laenutajaField;
     private JButton okBtn;
+    private FormListener listener;
 
     public FormPanel() {
         Dimension dim = getPreferredSize();
@@ -54,6 +55,23 @@ public class FormPanel extends JPanel {
                 boolean isTicked = checkBox.isSelected();
                 laenutajaLabel.setEnabled(isTicked);
                 laenutajaField.setEnabled(isTicked);
+            }
+        });
+
+        okBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String pealkiri = pealkiriField.getText();
+                String autor = autorField.getText();
+                String aasta = aastaField.getText();
+                String zhanr = (String) zhanrCombo.getSelectedItem();
+                boolean laenutatud = checkBox.isSelected();
+                String laenutaja = laenutajaField.getText();
+
+                FormEvent ev = new FormEvent(this, pealkiri, autor, aasta, zhanr, laenutatud, laenutaja);
+                if (listener!=null) {
+                    listener.formEventOccured(ev);
+                }
             }
         });
 
@@ -181,6 +199,10 @@ public class FormPanel extends JPanel {
 
 
 
+
+    }
+    public void setFormListener(FormListener listener) {
+        this.listener = listener;
 
     }
 }
