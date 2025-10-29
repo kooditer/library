@@ -1,13 +1,14 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class Database {
-    private ArrayList raamatud;
+    private List<Raamat> raamatud;
 
     public Database() {
-        raamatud = new ArrayList<Raamat>();
+        raamatud = new LinkedList<Raamat>();
     }
 
     public void addRaamat(Raamat raamat) {
@@ -16,5 +17,9 @@ public class Database {
 
     public List<Raamat> getRaamatud() {
         return raamatud;
+    }
+
+    public void removeBook(int index) {
+        raamatud.remove(index);
     }
 }
