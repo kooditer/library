@@ -34,6 +34,9 @@ public class Controller {
 
         Raamat raamat = new Raamat(pealkiri, autor, aasta, comboZhanr, laenutatud, laenutaja);
         db.addRaamat(raamat);
+    }
 
+    public void removeRaamat(int index) {
+        db.removeRaamat(index);
     }
 }
