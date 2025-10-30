@@ -31,6 +31,13 @@ public class MainFrame extends JFrame {
                 textPanel.appendText(text);
             }
         });
+        tablePanel.setTableListener(new TableListener() {
+            @Override
+            public void eemaldaRida(int row) {
+                controller.removeRaamat(row);
+
+            }
+        });
 
         formPanel.setFormListener(new FormListener() {
             @Override

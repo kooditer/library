@@ -14,6 +14,10 @@ public class Controller {
         return db.getRaamatud();
     }
 
+    public void removeRaamat(int index) {
+        db.kustutaRaamat(index);
+    }
+
     public void addRaamat(FormEvent ev) {
         String pealkiri = ev.getPealkiri();
         String autor = ev.getAutor();
