@@ -32,6 +32,14 @@ public class MainFrame extends JFrame {
             }
         });
 
+        tablePanel.setRaamatTableListener(new RaamatTableListener() {
+            @Override
+            public void removeRow(int row) {
+                controller.removeRaamat(row);
+
+            }
+        });
+
         formPanel.setFormListener(new FormListener() {
             @Override
             public void formEventOccured(FormEvent e) {
