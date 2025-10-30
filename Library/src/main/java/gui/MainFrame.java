@@ -32,6 +32,13 @@ public class MainFrame extends JFrame {
             }
         });
 
+        tablePanel.setTableListener(new TableListener() {
+            @Override
+            public void removeRow(int row) {
+                controller.removeBook(row);
+            }
+        });
+
         formPanel.setFormListener(new FormListener() {
             @Override
             public void formEventOccured(FormEvent e) {
