@@ -1,8 +1,6 @@
 package model;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -22,7 +20,7 @@ public class Database {
         } catch (ClassNotFoundException e) {
             throw new Exception("Driver not found");
         }
-        String url = "jdbc:mysql://localhost:3306/sakila";
+        String url = "jdbc:mysql://localhost:3306/raamatud";
         con = DriverManager.getConnection(url, "root", "Veiko123");
         System.out.println("Ühendus nimega: " + con + " alustatud...");
 
@@ -40,6 +38,22 @@ public class Database {
             }
         }
 
+    }
+
+    public void save() throws SQLException {
+        String checkSql = "select count(*) as count from books where id=?";
+        PreparedStatement checkStmt = con.prepareStatement(checkSql);
+
+        for (Raamat raamat: raamatud) {
+            int id = raamat.getRaamatID();
+            checkStmt.setInt(1, id);
+            ResultSet checkResult = checkStmt.executeQuery();
+            checkResult.next();
+
+            int count = checkResult.getInt(1);
+            System.out.println("Nimekirjas ID-ga " + id + " raamatute arv on " + count);
+        }
+        checkStmt.close();
     }
 
     public void addRaamat(Raamat raamat) {
