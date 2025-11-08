@@ -6,6 +6,7 @@ import java.awt.*;
 public class MainFrame extends JFrame {
     private ToolBar toolBar;
     private TextPanel textPanel;
+    private FormPanel formPanel;
 
 
     public  MainFrame() {
@@ -15,6 +16,7 @@ public class MainFrame extends JFrame {
 
         textPanel = new TextPanel();
         toolBar = new ToolBar();
+        formPanel = new FormPanel();
 
         toolBar.setStringListener(new StringListener() {
             @Override
@@ -23,9 +25,27 @@ public class MainFrame extends JFrame {
             }
         });
 
+        formPanel.setFormListener(new FormEventListener() {
+            @Override
+            public void formEventOccured(FormEvent ev) {
+                String pealkiri = ev.getPealkiri();
+                String autor = ev.getAutor();
+                String aasta = ev.getAasta();
+                String zhanr = ev.getZhanr();
+                String hinnang = ev.getHinnang();
+                boolean laenutatud = ev.isIslaenutatud();
+                String laenutaja = ev.getLaenutaja();
+
+                textPanel.appendText(pealkiri + " " + autor + " " + aasta + " "
+                        + zhanr + " " + hinnang + " "
+                        + laenutatud + " " + laenutaja + "\n");
+            }
+        });
+
 
         add(textPanel, BorderLayout.CENTER);
         add(toolBar, BorderLayout.NORTH);
+        add(formPanel, BorderLayout.WEST);
 
 
 
