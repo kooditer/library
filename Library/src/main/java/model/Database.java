@@ -24,13 +24,13 @@ public class Database {
     }
 
     public void save() throws SQLException {
-        String checkSql = "select count(*) as count from books where id=?";
+        String checkSql = "select count(*) as count from books where pealkiri=?";
         PreparedStatement checkStatement = con.prepareStatement(checkSql);
 
         String insertSql = "insert into books (id, pealkiri, autor, aasta, zhanr, laenutatud, laenutaja) values (?, ?, ?, ?, ?, ?, ?)";
 
 
-        String updateSql = "update books set pealkiri=?, autor=?, aasta=?, zhanr=?, laenutatud=?, laenutaja=? where id=?";
+        String updateSql = "update books set autor=?, aasta=?, zhanr=?, laenutatud=?, laenutaja=? where pealkiri=?";
 
         PreparedStatement insertStatement = con.prepareStatement(insertSql);
         PreparedStatement updateStatement = con.prepareStatement(updateSql);
@@ -45,13 +45,14 @@ public class Database {
             boolean isLaenutatud = raamat.isLaenutatud();
             String laenutaja = raamat.getLaenutaja();
 
-            checkStatement.setInt(1, id);
+            checkStatement.setString(1, pealkiri);
             ResultSet checkResult = checkStatement.executeQuery();
             checkResult.next();
             int count = checkResult.getInt(1);
+            System.out.println("Raamatut " + "\"" + pealkiri + "\"" + " on " + count + "tükki");
 
             if (count==0) {
-                System.out.println("Sisestan database-i raamatu id-ga: " + id + " andmeid");
+                System.out.println("Sisestan database-i raamatu  " + pealkiri);
                 int col = 1;
                 insertStatement.setInt(col++, id);
                 insertStatement.setString(col++, pealkiri);
@@ -63,15 +64,15 @@ public class Database {
 
                 insertStatement.executeUpdate();
             } else {
-                System.out.println("Uuendan ID-ga nr: " + id + " andmeid");
+                System.out.println("Uuendan raamatut " + "\"" + pealkiri + "\"");
                 int col = 1;
-                updateStatement.setString(col++, pealkiri);
+                //updateStatement.setInt(col++, id);
                 updateStatement.setString(col++, autor);
                 updateStatement.setString(col++, aasta);
                 updateStatement.setString(col++, zhanr.name());
                 updateStatement.setBoolean(col++, isLaenutatud);
                 updateStatement.setString(col++, laenutaja);
-                updateStatement.setInt(col++, id);
+                updateStatement.setString(col++, pealkiri);
 
                 updateStatement.executeUpdate();
             }
@@ -99,7 +100,6 @@ public class Database {
 
             Raamat raamat = new Raamat(id, pealkiri, autor, aasta, Zhanr.valueOf(zhanr), laenutatud, laenutaja);
             raamatud.add(raamat);
-            System.out.println(raamat);
         }
         results.close();
         selectStatement.close();

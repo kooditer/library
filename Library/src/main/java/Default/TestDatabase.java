@@ -30,8 +30,8 @@ public class TestDatabase {
         db.addRaamat(new Raamat("Kolm lugu", "Olimar Kallas", "2111", krimka, false, "Enn Mäesalu"));
         db.addRaamat(new Raamat("Mingi raamat", "Mats Traat", "1999", elulugu, true, "Maile Mäesalu"));
         db.addRaamat(new Raamat("Parim raamat", "Veiko Mäesalu", "2007", õpik, true, "Veiko Mäesalu"));
-
         db.addRaamat(new Raamat("Mesikäppade aabits", "Heljo Mänd", "2009", õpik, true, "Elle Mäesalu"));
+        db.addRaamat(new Raamat("Käppade aabits", "Heeeeljo Mänd", "2999", õpik, true, "Elle Mäesalu"));
 
         try {
             db.save();
