@@ -33,6 +33,12 @@ public class TestDatabase {
             throw new RuntimeException(e);
         }
 
+        try {
+            db.load();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
         db.disconnect();
     }
 }

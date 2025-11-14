@@ -85,10 +85,36 @@ public class Database {
             }
 //            System.out.println("ID => " + id + " Count: " + count);
         }
+
+
         updateStmt.close();
         insertStmt.close();
         checkStmt.close();
 
+    }
+
+    public void load() throws SQLException {
+        raamatud.clear();
+
+        String sql = "Select id, pealkiri, autor, aasta, zhanr,laenutatud, laenutaja from books order by pealkiri";
+        Statement selectStatement = con.createStatement();
+        ResultSet results = selectStatement.executeQuery(sql);
+        while (results.next()) {
+            int id = results.getInt("id");
+            //System.out.println(id);
+            String pealkiri = results.getString("pealkiri");
+            String autor = results.getString("autor");
+            String aasta = results.getString("aasta");
+            String zhanr = results.getString("zhanr");
+            boolean laenutatud = results.getBoolean("laenutatud");
+            String laenutaja = results.getString("laenutaja");
+//            System.out.println(laenutatud);
+            Raamat raamat = new Raamat(id, pealkiri, autor, aasta, Zhanr.valueOf(zhanr), laenutatud, laenutaja);
+            raamatud.add(raamat);
+            System.out.println(raamat);
+        }
+        results.close();
+        selectStatement.close();
     }
 
     public void disconnect(){

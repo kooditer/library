@@ -22,6 +22,12 @@ public class Raamat {
         count++;
     }
 
+    public Raamat(int id, String pealkiri, String autor, String aasta,
+                  Zhanr zhanrCombo, boolean laenutatud, String laenutaja) {
+        this(pealkiri, autor, aasta, zhanrCombo, laenutatud, laenutaja);
+        this.raamatID = id;
+    }
+
     public int getRaamatID() {
         return raamatID;
     }
@@ -76,5 +82,10 @@ public class Raamat {
 
     public void setLaenutaja(String laenutaja) {
         this.laenutaja = laenutaja;
+    }
+
+    @Override
+    public String toString() {
+        return raamatID + ": " +  pealkiri;
     }
 }
