@@ -1,7 +1,7 @@
 package model;
 
 public class Raamat {
-    private static int count = 0;
+    private static int count = 1;
     private int raamatID;
     private String pealkiri;
     private String autor;
@@ -20,6 +20,12 @@ public class Raamat {
         this.laenutaja = laenutaja;
         this.raamatID = count;
         count++;
+    }
+
+    public Raamat(int id, String pealkiri, String autor, String aasta,
+                  Zhanr zhanrCombo, boolean laenutatud, String laenutaja) {
+        this(pealkiri, autor, aasta, zhanrCombo, laenutatud, laenutaja);
+        this.raamatID = id;
     }
 
     public int getRaamatID() {
@@ -76,5 +82,10 @@ public class Raamat {
 
     public void setLaenutaja(String laenutaja) {
         this.laenutaja = laenutaja;
+    }
+
+    @Override
+    public String toString() {
+        return pealkiri;
     }
 }

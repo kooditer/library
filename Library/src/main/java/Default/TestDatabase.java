@@ -1,6 +1,11 @@
 package Default;
 
 import model.Database;
+import model.Raamat;
+
+import java.sql.SQLException;
+
+import static model.Zhanr.*;
 
 public class TestDatabase {
     public static void main(String[] args) {
@@ -13,6 +18,30 @@ public class TestDatabase {
         } catch (Exception e) {
 //            throw new RuntimeException(e);
             e.printStackTrace();
+        }
+
+        db.addRaamat(new Raamat("Karu aabits", "Heljo Mänd", "2009", õpik, true, "Elle Mäesalu"));
+        db.addRaamat(new Raamat("Mõmmi aabits", "Heljo Mänd", "2009", õpik, true, "Elle Mäesalu"));
+        db.addRaamat(new Raamat("Kolm lugu", "Olimar Kallas", "2111", krimka, false, "Enn Mäesalu"));
+        db.addRaamat(new Raamat("Mingi raamat", "Mats Traat", "1999", elulugu, true, "Maile Mäesalu"));
+        db.addRaamat(new Raamat("Parim raamat", "Veiko Mäesalu", "2007", õpik, true, "Veiko Mäesalu"));
+        db.addRaamat(new Raamat("Karu aabits", "Heljo Mänd", "2009", õpik, true, "Elle Mäesalu"));
+        db.addRaamat(new Raamat("Mõmmi aabits", "Heljo Mänd", "2009", õpik, true, "Elle Mäesalu"));
+        db.addRaamat(new Raamat("Kolm lugu", "Olimar Kallas", "2111", krimka, false, "Enn Mäesalu"));
+        db.addRaamat(new Raamat("Mingi raamat", "Mats Traat", "1999", elulugu, true, "Maile Mäesalu"));
+        db.addRaamat(new Raamat("Parim raamat", "Veiko Mäesalu", "2007", õpik, true, "Veiko Mäesalu"));
+
+        db.addRaamat(new Raamat("Mesikäppade aabits", "Heljo Mänd", "2009", õpik, true, "Elle Mäesalu"));
+
+        try {
+            db.save();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            db.load();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
         db.disconnect();
     }

@@ -1,8 +1,6 @@
 package model;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -21,9 +19,94 @@ public class Database {
         } catch (ClassNotFoundException e) {
             throw new Exception("Driver not found");
         }
-        String url = "jdbc:mysql://localhost:3306/sakila";
+        String url = "jdbc:mysql://localhost:3306/raamatud";
         con = DriverManager.getConnection(url, "root", "Veiko123");
     }
+
+    public void save() throws SQLException {
+        String checkSql = "select count(*) as count from books where id=?";
+        PreparedStatement checkStatement = con.prepareStatement(checkSql);
+
+        String insertSql = "insert into books (id, pealkiri, autor, aasta, zhanr, laenutatud, laenutaja) values (?, ?, ?, ?, ?, ?, ?)";
+
+
+        String updateSql = "update books set pealkiri=?, autor=?, aasta=?, zhanr=?, laenutatud=?, laenutaja=? where id=?";
+
+        PreparedStatement insertStatement = con.prepareStatement(insertSql);
+        PreparedStatement updateStatement = con.prepareStatement(updateSql);
+
+
+        for (Raamat raamat:raamatud) {
+            int id = raamat.getRaamatID();
+            String pealkiri = raamat.getPealkiri();
+            String autor = raamat.getAutor();
+            String aasta = raamat.getAasta();
+            Zhanr zhanr = raamat.getZhanrCombo();
+            boolean isLaenutatud = raamat.isLaenutatud();
+            String laenutaja = raamat.getLaenutaja();
+
+            checkStatement.setInt(1, id);
+            ResultSet checkResult = checkStatement.executeQuery();
+            checkResult.next();
+            int count = checkResult.getInt(1);
+
+            if (count==0) {
+                System.out.println("Sisestan database-i raamatu id-ga: " + id + " andmeid");
+                int col = 1;
+                insertStatement.setInt(col++, id);
+                insertStatement.setString(col++, pealkiri);
+                insertStatement.setString(col++, autor);
+                insertStatement.setString(col++, aasta);
+                insertStatement.setString(col++, zhanr.name());
+                insertStatement.setBoolean(col++, isLaenutatud);
+                insertStatement.setString(col++, laenutaja);
+
+                insertStatement.executeUpdate();
+            } else {
+                System.out.println("Uuendan ID-ga nr: " + id + " andmeid");
+                int col = 1;
+                updateStatement.setString(col++, pealkiri);
+                updateStatement.setString(col++, autor);
+                updateStatement.setString(col++, aasta);
+                updateStatement.setString(col++, zhanr.name());
+                updateStatement.setBoolean(col++, isLaenutatud);
+                updateStatement.setString(col++, laenutaja);
+                updateStatement.setInt(col++, id);
+
+                updateStatement.executeUpdate();
+            }
+
+        }
+        checkStatement.close();
+        insertStatement.close();
+        updateStatement.close();
+    }
+
+
+    public void load() throws SQLException {
+        raamatud.clear();
+        String sql = "select id, pealkiri, autor, aasta, zhanr, laenutatud, laenutaja from books order by pealkiri";
+        Statement selectStatement = con.createStatement();
+        ResultSet results = selectStatement.executeQuery(sql);
+        while (results.next()) {
+            int id = results.getInt("id");
+            String pealkiri = results.getString("pealkiri");
+            String autor = results.getString("autor");
+            String aasta = results.getString("aasta");
+            String zhanr = results.getString("zhanr");
+            boolean laenutatud = results.getBoolean("laenutatud");
+            String laenutaja = results.getString("laenutaja");
+
+            Raamat raamat = new Raamat(id, pealkiri, autor, aasta, Zhanr.valueOf(zhanr), laenutatud, laenutaja);
+            raamatud.add(raamat);
+            System.out.println(raamat);
+        }
+        results.close();
+        selectStatement.close();
+
+    }
+
+
 
     public void disconnect(){
         if (con!=null) {
